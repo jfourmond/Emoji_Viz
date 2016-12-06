@@ -8,12 +8,22 @@
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://d3js.org/queue.v1.min.js"></script>
+	</head>
+	<body>
+		<h1>Page de Test</h1>
 		<script>
+			var svg = d3.select("body").append("svg")
+				.attr("width", 960)
+				.attr("height", 250);
+
+			var x = d3.scaleLinear().range([0, 500]);
+			var y = d3.scaleLinear().range([0, 50]);
+
 			// Chargement des fichiers de manière asynchrone
 			queue()
-			.defer(d3.json, "data.json")
-			.defer(d3.csv, "emoji_copy.csv")
-			.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
+				.defer(d3.json, "data.json")
+				.defer(d3.csv, "emoji_copy.csv")
+				.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
 
  			function processData(error, data, emojis) {
 				var tweets = [];
@@ -35,11 +45,33 @@
 						} catch(err) {}
 					}
 					if(n != 0) console.log(emoji + " : " + n);
+					// Injecter dans le json les occurences
+					e.occurence = n;
 				}
+				showStats(emojis);
+			}
+
+			function showStats(jsonData) {
+				var jsonFiltered = filterEmojis(jsonData);
+
+				svg.selectAll("text").data(jsonFiltered).enter().append("text")
+					.text(function(d) {
+						return d["Brow."] + " : " + d["occurence"]; })
+					.attr("y", function(d, i) { return y(i) + 40; })
+					.attr("x", 1)
+					.style("font-size", 20)
+					.style("font-family", "monospace");
+			}
+
+			function filterEmojis(emojis) {
+				var json = [];
+				for(var emoji of emojis) {
+					if(emoji["occurence"] > 0) {
+						json.push(emoji);
+					}
+				}
+				return json;
 			}
 		</script>
-	</head>
-	<body>
-		<h1>Test Page</h1>
 	</body>
 </html>
