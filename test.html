@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+ 	<head>
+		<meta charset='utf-8'>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-cyan.min.css" />
+		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="http://d3js.org/queue.v1.min.js"></script>
+		<script>
+			// Chargement des fichiers de manière asynchrone
+			queue()
+			.defer(d3.json, "data.json")
+			.defer(d3.csv, "emoji_copy.csv")
+			.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
+
+ 			function processData(error, data, emojis) {
+				var tweets = [];
+				
+				for(var t of data.statuses) {
+					tweets.push(t.text);
+				}
+
+				console.log(emojis.length + " EMOJIS : %O ", emojis);
+				console.log(tweets.length + " TWEETS : %O", tweets);
+
+				for(var e of emojis) {
+					var n = 0;
+					var emoji = e["Brow."];
+					for(var tweet of tweets) {
+						try {
+							var o = tweet.search(emoji);
+							if(o != -1) n++;
+						} catch(err) {}
+					}
+					if(n != 0) console.log(emoji + " : " + n);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Test Page</h1>
+	</body>
+</html>
