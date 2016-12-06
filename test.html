@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-cyan.min.css" />
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="http://d3js.org/queue.v1.min.js"></script>
+		<script src="https://d3js.org/queue.v1.min.js"></script>
 		<script>
 			// Chargement des fichiers de manière asynchrone
 			queue()
@@ -17,7 +17,7 @@
 
  			function processData(error, data, emojis) {
 				var tweets = [];
-				
+
 				for(var t of data.statuses) {
 					tweets.push(t.text);
 				}
