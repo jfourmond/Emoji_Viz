@@ -24,7 +24,8 @@ var success = function (data) {
 	jsonFile.writeFile(outputFile, json, {spaces: 4}, function (err) {
 		console.error(err)
 	});
-	if(count == 30) clearInterval(id);
+	if(count == MAX) clearInterval(id);
+	console.log((MAX - count) + " exécutions restantes.");
 };
 
 var inputFile = 'twitter_config.txt';

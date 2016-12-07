@@ -32,6 +32,7 @@
 				for(var t of data.statuses) {
 					tweets.push(t.text);
 				}
+				console.log(tweets.length + " RAW TWEETS : %O", tweets);
 				tweets = filterTweets(tweets);
 
 				console.log(emojis.length + " EMOJIS : %O ", emojis);
@@ -72,16 +73,32 @@
 			}
 
 			function filterTweets(data_tweets) {
-				var tweets = [];
+				var tweets_1 = [];
 				//	Suppression des retweets
 				for(var i=0 ; i<data_tweets.length ; i++) {
 					var tweet = data_tweets[i];
 					if(!tweet.startsWith("RT")) {
-						tweets.push(tweet);
+						tweets_1.push(tweet);
 					}
 				}
-				//	TODO Suppression des doublons
-				return tweets;
+
+				console.log(tweets_1.length + " NO RT TWEETS : %O", tweets_1);
+				var tweets_2 = []
+				//	Suppression des doublons
+				for(var i=0 ; i<tweets_1.length ; i++) {
+					var found = false;
+					var tweet_i = tweets_1[i];
+					for(var j=0 ; j<tweets_2.length ; j++) {
+						var tweet_j = tweets_2[j];
+						if(tweet_i.localeCompare(tweet_j) == 0) {
+							found = true;
+							break;
+						}
+					}
+					if(!found)
+						tweets_2.push(tweet_i)
+				}
+				return tweets_2;
 			}
 
 			function filterEmojis(emojis) {
