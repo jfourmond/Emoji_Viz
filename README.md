@@ -21,12 +21,12 @@ Pour récupérer 100 tweets :
 4. Exécuter la commande
 	node retrieveTweets.js
 
-## Récupération de 100 tweets toutes les minutes pendant 10 minutes
+## Récupération de 100 tweets toutes les 15 minutes pendant 1 heure
 
-Pour récupérer 100 tweets :
+Pour récupérer les tweets :
 
 1. Récupérer les modules précédents
 2. Créer et remplir le fichier twitter_config.txt
 3. Editer le fichier retrieveTweetsTenMinutes.js (twitter.getSearch(...)) avec les paramètres adéquats.
 4. Exécuter la commande
-	node retrieveTweetsTenMinutes.js
+	node retrieveTweetsOneHour.js
