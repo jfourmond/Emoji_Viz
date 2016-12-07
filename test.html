@@ -10,8 +10,10 @@
 		<script src="https://d3js.org/queue.v1.min.js"></script>
 	</head>
 	<body>
-		<h1>Page de Test</h1>
+		<h1 id="title">Lecture des tweets...</h1>
 		<script>
+			var title = document.getElementById("title");
+
 			var svg = d3.select("body").append("svg")
 				.attr("width", 960)
 				.attr("height", 250);
@@ -51,6 +53,8 @@
 					// Injecter dans le json les occurences
 					e.occurence = n;
 				}
+
+				title.innerHTML = "Sur " + tweets.length + " Tweets uniques";
 				showStats(emojis);
 			}
 
