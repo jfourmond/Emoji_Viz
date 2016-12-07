@@ -16,8 +16,8 @@
 				.attr("width", 960)
 				.attr("height", 250);
 
-			var x = d3.scaleLinear().range([0, 500]);
-			var y = d3.scaleLinear().range([0, 50]);
+			var x = d3.scaleLinear().range([0, 30]);
+			var y = d3.scaleLinear().range([0, 30]);
 
 			// Chargement des fichiers de manière asynchrone
 			queue()
@@ -28,9 +28,11 @@
  			function processData(error, data, emojis) {
 				var tweets = [];
 
+				// Récupération des textes
 				for(var t of data.statuses) {
 					tweets.push(t.text);
 				}
+				tweets = filterTweets(tweets);
 
 				console.log(emojis.length + " EMOJIS : %O ", emojis);
 				console.log(tweets.length + " TWEETS : %O", tweets);
@@ -57,10 +59,29 @@
 				svg.selectAll("text").data(jsonFiltered).enter().append("text")
 					.text(function(d) {
 						return d["Brow."] + " : " + d["occurence"]; })
-					.attr("y", function(d, i) { return y(i) + 40; })
-					.attr("x", 1)
+					.attr("y", function(d, i) {
+						var n = i%5;
+						return y(i + (n*(-1)))/5 + 40;
+					})
+					.attr("x", function(d, i) {
+						var n = i%5;
+						return 10 + (100 * n);
+					})
 					.style("font-size", 20)
 					.style("font-family", "monospace");
+			}
+
+			function filterTweets(data_tweets) {
+				var tweets = [];
+				//	Suppression des retweets
+				for(var i=0 ; i<data_tweets.length ; i++) {
+					var tweet = data_tweets[i];
+					if(!tweet.startsWith("RT")) {
+						tweets.push(tweet);
+					}
+				}
+				//	TODO Suppression des doublons
+				return tweets;
 			}
 
 			function filterEmojis(emojis) {
