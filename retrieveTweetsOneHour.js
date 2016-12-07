@@ -20,7 +20,7 @@ var success = function (data) {
 	console.log('Data [%O]', data);
 
 	var date = new Date();
-	var outputFile = 'data_test' + Date.now() + '.json';
+	var outputFile = 'data_' + Date.now() + '.json';
 	jsonFile.writeFile(outputFile, json, {spaces: 4}, function (err) {
 		console.error(err)
 	});
