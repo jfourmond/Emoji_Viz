@@ -22,7 +22,7 @@
 			// Chargement des fichiers de manière asynchrone
 			queue()
 				.defer(d3.json, "data.json")
-				.defer(d3.csv, "emoji_copy.csv")
+				.defer(d3.csv, "emoji.csv")
 				.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
 
  			function processData(error, data, emojis) {
