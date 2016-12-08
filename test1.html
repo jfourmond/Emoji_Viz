@@ -88,7 +88,7 @@
 				g.selectAll("rect").data(jsonFiltered).enter().append("rect")
 	    			.attr("x", 50)
 	    			.attr("y", function(d, i) { return y(i) + 5; })
-	    			.attr("height", 900 / jsonFiltered.length - 10)
+	    			.attr("height", (count * 30) / jsonFiltered.length - 10)
 					.attr("width", function(d) { return x(d.occurence); })
 					.attr("class", "rect")
 					.on("mouseover", function(d) {
