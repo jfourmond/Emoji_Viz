@@ -8,6 +8,8 @@ Projet de Visualisation de données : "Visualisation de dictionnaires d’emojis
 
 [https://jfourmond.github.io/Emoji_Viz/test.html](https://jfourmond.github.io/Emoji_Viz/test.html)
 
+[https://jfourmond.github.io/Emoji_Viz/test1.html](https://jfourmond.github.io/Emoji_Viz/test1.html)
+
 ## Récupération de 100 tweets
 
 Modules Node utilisés :
