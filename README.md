@@ -10,6 +10,10 @@ Projet de Visualisation de données : "Visualisation de dictionnaires d’emojis
 
 [https://jfourmond.github.io/Emoji_Viz/test1.html](https://jfourmond.github.io/Emoji_Viz/test1.html)
 
+## Cahier d'avancement
+
+https://docs.google.com/document/d/1_yTQ3s1Zs-DncKQ8NtyIqhFQPnbsHWkxtYuxSHVmfO4/edit?usp=sharing
+
 ## Récupération de 100 tweets
 
 Modules Node utilisés :
