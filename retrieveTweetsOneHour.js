@@ -1,13 +1,14 @@
-// Récupération des Tweets toutes les 15 minutes pendant une heure
-//
-
+// Récupération des Tweets toutes les minutes pendant une heure
+// Mots clés : "Star-Wars" & "Rogue-One"
 var Twitter = require('twitter-node-client').Twitter;
 var jsonFile = require('jsonfile');
 
+var count = 0;
+var MAX = 60;
+
+var twitter;
 var json;
 var id;
-var count = 0;
-var MAX = 4;
 
 //Callback functions
 var error = function (err, response, body) {
@@ -20,7 +21,7 @@ var success = function (data) {
 	console.log('Data [%O]', data);
 
 	var date = new Date();
-	var outputFile = 'data_' + Date.now() + '.json';
+	var outputFile = 'data/data_' + Date.now() + '.json';
 	jsonFile.writeFile(outputFile, json, {spaces: 4}, function (err) {
 		console.error(err)
 	});
@@ -31,13 +32,14 @@ var success = function (data) {
 var inputFile = 'twitter_config.txt';
 jsonFile.readFile(inputFile, function(err, obj) {
 	var config = obj;
+	//	Linking
+	twitter = new Twitter(config);
 	// Premier lancement
 	search(config);
-	// Puis sur un intervalle régulier de 15 minutes
-	id = setInterval(search, 60 * 15000, config);
+	// Puis sur un intervalle régulier de 1 minute
+	id = setInterval(search, 60 * 1000, config);
 });
 
 function search(config) {
-	var twitter = new Twitter(config);
-	twitter.getSearch({'q':'emoji', 'lang':'fr', 'count':'100'}, error, success);
+	twitter.getSearch({ 'q':'star-wars OR rogue one', 'count':'100', 'include_entities':'false' }, error, success);
 }

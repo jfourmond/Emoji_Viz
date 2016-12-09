@@ -21,5 +21,5 @@ var inputFile = 'twitter_config.txt';
 jsonFile.readFile(inputFile, function(err, obj) {
 	var config = obj;
 	var twitter = new Twitter(config);
-	twitter.getSearch({'q':'emoji', 'lang':'fr', 'count':'100'}, error, success);
+	twitter.getSearch({ 'q':'Star-Wars OR Rogue One', 'count':'100', 'include_entities':'false' }, error, success);
 });

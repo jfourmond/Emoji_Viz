@@ -12,15 +12,17 @@ Projet de Visualisation de données : "Visualisation de dictionnaires d’emojis
 
 ## Cahier d'avancement
 
-https://docs.google.com/document/d/1_yTQ3s1Zs-DncKQ8NtyIqhFQPnbsHWkxtYuxSHVmfO4/edit?usp=sharing
+https://goo.gl/yrl04A
 
 ## Récupération de 100 tweets
+
+***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
 
 Modules Node utilisés :
 - [twitter-node-client](https://www.npmjs.com/package/twitter-node-client) pour la récupération des tweets
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
 
-Pour récupérer 100 tweets :
+Pour récupérer 100 tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
 1. Récupérer les modules précédents
 2. Créer et remplir le fichier twitter_config.txt
@@ -28,9 +30,9 @@ Pour récupérer 100 tweets :
 4. Exécuter la commande
 	node retrieveTweets.js
 
-## Récupération de 100 tweets toutes les 15 minutes pendant 1 heure
+## Récupération de 100 tweets toutes les minutes pendant 1 heure
 
-Pour récupérer les tweets :
+Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
 1. Récupérer les modules précédents
 2. Créer et remplir le fichier twitter_config.txt
