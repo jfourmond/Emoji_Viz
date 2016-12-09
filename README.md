@@ -1,6 +1,15 @@
-# Emoji_Viz
+# Emoji Viz
 
 Projet de Visualisation de données : "Visualisation de dictionnaires d’emojis et leur fréquence"
+
+Par :
+- [FOURMOND Jérôme](https://github.com/jfourmond/)
+- [LANGLOIS Aurelien](https://github.com/Aurelink)
+
+Dans le cadre de l'Unité d'Enseignement **Visualisation de Données** du [Master 2 Informatique - Parcours Intelligence Artificielle](http://master-info.univ-lyon1.fr/IA/) de l'[Université Claude Bernard Lyon 1](http://www.univ-lyon1.fr/).
+
+Langage :
+- Javascript (& Node JS)
 
 ## Lien
 
@@ -14,9 +23,11 @@ Projet de Visualisation de données : "Visualisation de dictionnaires d’emojis
 
 https://goo.gl/yrl04A
 
-## Récupération de 100 tweets
+## Récupération des tweets
 
 ***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
+
+### Récupération de 100 tweets
 
 Modules Node utilisés :
 - [twitter-node-client](https://www.npmjs.com/package/twitter-node-client) pour la récupération des tweets
@@ -30,7 +41,7 @@ Pour récupérer 100 tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 4. Exécuter la commande
 	node retrieveTweets.js
 
-## Récupération de 100 tweets toutes les minutes pendant 1 heure
+### Récupération de 100 tweets toutes les minutes pendant 1 heure
 
 Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
