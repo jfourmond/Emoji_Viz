@@ -37,12 +37,17 @@ Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
 1. Récupérer les modules précédents
 2. Créer et remplir le fichier ***twitter_config.txt*** avec vos identifiants **Twitter API**
-3. Exécuter la commande
+3. Créer le répertoire ***data*** dans le projet
+4. Exécuter la commande
 
 	node retrieveTweetsMultiple.js [-n=n] [-hours=hours] [-minutes=minutes]
 
 Un seul des arguments *-n*, *-hours*, *-minutes* est obligatoire dans la commande. Ils peuvent tous être employés dans la commande.
+Par exemple :
 
+	node retrieveTweetsMultiple.js -hours=24 -minutes=10 -n=2
+
+Qui signifie que le programme récupérera des tweets pendant 24 heures, 10 minutes avec 2 itérations bonus.
 Le nombre d'itération (de recherches effectuées et de fichiers crées) se calcule par :
 
 	var MAX = (hours * 60) + minutes + n;
