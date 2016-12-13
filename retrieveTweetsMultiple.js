@@ -65,6 +65,7 @@ var success = function (data) {
 var inputFile = 'twitter_config.txt';
 jsonFile.readFile(inputFile, function(err, obj) {
 	var config = obj;
+	console.log("Nombre d'itérations attendu : " + MAX);
 	//	Linking
 	twitter = new Twitter(config);
 	// First launch

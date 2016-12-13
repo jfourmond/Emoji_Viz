@@ -27,7 +27,7 @@ https://goo.gl/yrl04A
 
 ***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
 
-### Récupération de 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
+### 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
 
 Modules Node utilisés :
 - [twitter-node-client](https://www.npmjs.com/package/twitter-node-client) pour la récupération des tweets
