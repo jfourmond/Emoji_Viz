@@ -30,7 +30,7 @@ https://goo.gl/yrl04A
 ### 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
 
 Modules Node utilisés :
-- [twitter-node-client](https://www.npmjs.com/package/twitter-node-client) pour la récupération des tweets
+- [twitter-node-client](https://github.com/BoyCook/TwitterJSClient) pour la récupération des tweets
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
 
 Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
@@ -39,7 +39,7 @@ Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 2. Créer et remplir le fichier ***twitter_config.txt*** avec vos identifiants **Twitter API**
 3. Exécuter la commande
 
-	node retrieveTweets.js [-n=n] [-hours=hours] [-minutes=minutes]
+	node retrieveTweetsMultiple.js [-n=n] [-hours=hours] [-minutes=minutes]
 
 Un seul des arguments *-n*, *-hours*, *-minutes* est obligatoire dans la commande. Ils peuvent tous être employés dans la commande.
 
