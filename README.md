@@ -27,27 +27,22 @@ https://goo.gl/yrl04A
 
 ***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
 
-### Récupération de 100 tweets
+### Récupération de 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
 
 Modules Node utilisés :
 - [twitter-node-client](https://www.npmjs.com/package/twitter-node-client) pour la récupération des tweets
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
 
-Pour récupérer 100 tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
-
-1. Récupérer les modules précédents
-2. Créer et remplir le fichier twitter_config.txt
-3. Editer le fichier retrieveTweets.js (twitter.getSearch(...)) avec les paramètres adéquats.
-4. Exécuter la commande
-	node retrieveTweets.js
-
-### Récupération de 100 tweets toutes les minutes pendant (n) heure(s)
-
 Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
 1. Récupérer les modules précédents
-2. Créer et remplir le fichier ***twitter_config.txt***
-3. Editer le fichier ***retrieveTweetsMultiple.js*** **(twitter.getSearch(...))** & **var hours = ?** avec les paramètres adéquats.
-4. Exécuter la commande
+2. Créer et remplir le fichier ***twitter_config.txt*** avec vos identifiants **Twitter API**
+3. Exécuter la commande
 
-	node retrieveTweetsOneHour.js
+	node retrieveTweets.js [-n=n] [-hours=hours] [-minutes=minutes]
+
+Un seul des arguments *-n*, *-hours*, *-minutes* est obligatoire dans la commande. Ils peuvent tous être employés dans la commande.
+
+Le nombre d'itération (de recherches effectuées et de fichiers crées) se calcule par :
+
+	var MAX = (hours * 60) + minutes + n;

@@ -3,9 +3,40 @@
 var Twitter = require('twitter-node-client').Twitter;
 var jsonFile = require('jsonfile');
 
-var hours = 2;
+var n = 0;
+var hours = 0;
+var minutes = 0;
 
-var MAX = 60 * hours;
+if (process.argv.length <= 2) {
+	console.log("Usage: node retrieveTweetsMultiple.js [-n] [-hours] [-minutes]");
+	process.exit(-1);
+}
+
+//	Gestion des paramètres
+var params = process.argv;
+params.splice(0, 2);
+for(var param of params) {
+	var a = param.split("=");
+	var arg = a[0];
+	var value = a[1];
+	switch(arg) {
+		case "-hours":
+			hours = parseInt(value);
+			break;
+		case "-minutes":
+			minutes = parseInt(value);
+			break;
+		case "-n":
+			n = parseInt(value);
+			break;
+		default:
+			throw "Wrong argument";
+	}
+}
+
+//	Max search iteration
+var MAX = (60 * hours) + minutes + n;
+//	Current search iteration
 var count = 0;
 
 var twitter;
@@ -36,9 +67,9 @@ jsonFile.readFile(inputFile, function(err, obj) {
 	var config = obj;
 	//	Linking
 	twitter = new Twitter(config);
-	// Premier lancement
+	// First launch
 	search(config);
-	// Puis sur un intervalle régulier de 1 minute
+	// Then on a one minute interval
 	id = setInterval(search, 60 * 1000, config);
 });
 
