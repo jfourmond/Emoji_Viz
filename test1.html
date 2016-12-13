@@ -9,15 +9,16 @@
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://d3js.org/queue.v1.min.js"></script>
 		<style>
-		rect {
-			fill: none;
-			stroke: orange;
-			stroke-width: 1px;
-		}
+			rect {
+				fill: none;
+				stroke: orange;
+				stroke-width: 1px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1 id="title">Lecture des tweets...</h1>
+		<div id="progressBar" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 		<script>
 			var title = document.getElementById("title");
 
@@ -37,6 +38,7 @@
 				.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
 
  			function processData(error, data, emojis) {
+				var countEmojis = 0;
 				var tweets = [];
 
 				// Récupération des textes
@@ -59,11 +61,13 @@
 						} catch(err) {}
 					}
 					if(n != 0) console.log(emoji + " : " + n);
+					countEmojis += n;
 					// Injecter dans le json les occurences
 					e.occurence = n;
 				}
+				console.log("Emojis : " + countEmojis);
+				title.innerHTML = "Sur " + tweets.length + " Tweets uniques : " + countEmojis + " emojis";
 
-				title.innerHTML = "Sur " + tweets.length + " Tweets uniques";
 				showStats(emojis);
 			}
 
@@ -105,6 +109,9 @@
 					.attr("x", function(d) { return x(d.occurence) + 60; })
 					.attr("y", function(d, i) { return y(i) + 20; })
 					.attr("class", "occurence");
+
+				var progressBar = document.getElementById("progressBar");
+				document.body.removeChild(progressBar);
 			}
 
 			function filterTweets(data_tweets) {

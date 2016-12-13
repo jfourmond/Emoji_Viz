@@ -46,7 +46,8 @@ Pour récupérer 100 tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 Pour récupérer les tweets (mots-clés : "*Star-Wars*", "*Rogue One*") :
 
 1. Récupérer les modules précédents
-2. Créer et remplir le fichier twitter_config.txt
-3. Editer le fichier retrieveTweetsTenMinutes.js (twitter.getSearch(...)) avec les paramètres adéquats.
+2. Créer et remplir le fichier ***twitter_config.txt***
+3. Editer le fichier ***retrieveTweetsTenMinutes.js*** **(twitter.getSearch(...))** avec les paramètres adéquats.
 4. Exécuter la commande
+
 	node retrieveTweetsOneHour.js
