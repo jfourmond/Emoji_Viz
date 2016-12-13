@@ -54,12 +54,12 @@ var success = function (data) {
 	console.log('Data [%O]', data);
 
 	var date = new Date();
-	var outputFile = 'data/data_' + Date.now() + '.json';
+	var outputFile = 'data/data_' + date.valueOf() + '.json';
 	jsonFile.writeFile(outputFile, json, {spaces: 4}, function (err) {
 		console.error(err)
 	});
 	if(count == MAX) clearInterval(id);
-	console.log((MAX - count) + " exécutions restantes.");
+	console.log((MAX - count) + " exécutions restantes. (Dernière : " + date.toString() + ")");
 };
 
 var inputFile = 'twitter_config.txt';
