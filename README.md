@@ -51,3 +51,20 @@ Qui signifie que le programme récupérera des tweets pendant 24 heures, 10 minu
 Le nombre d'itération (de recherches effectuées et de fichiers crées) se calcule par :
 
 	var MAX = (hours * 60) + minutes + n;
+
+## Filtrage des tweets
+
+Module Node utilisé :
+- [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
+
+Pour filtrer les tweets :
+
+1. Récupérer les modules précédents
+2. Exécuter la commande
+
+	node filterTweets.js [filename]
+
+L'argument *filename* représente le nom du fichier contenant les tweets. Le fichier en sortie sera ***tweets.json***.
+Par exemple :
+
+	node filterTweets.js data.json

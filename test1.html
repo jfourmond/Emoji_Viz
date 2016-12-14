@@ -44,10 +44,11 @@
 				for(var t of data.statuses) {
 					tweets.push(t.text);
 				}
+
+				console.log(emojis.length + " EMOJIS : %O ", emojis);
 				console.log(tweets.length + " RAW TWEETS : %O", tweets);
 				tweets = filterTweets(tweets);
 
-				console.log(emojis.length + " EMOJIS : %O ", emojis);
 				console.log(tweets.length + " TWEETS : %O", tweets);
 
 				for(var e of emojis) {
@@ -59,12 +60,10 @@
 							if(o != -1) n++;
 						} catch(err) {}
 					}
-					if(n != 0) console.log(emoji + " : " + n);
 					countEmojis += n;
 					// Injecter dans le json les occurences
 					e.occurence = n;
 				}
-				console.log("Emojis : " + countEmojis);
 				title.innerHTML = "Sur " + tweets.length + " Tweets uniques : " + countEmojis + " emojis";
 
 				showStats(emojis);
@@ -74,40 +73,66 @@
 				var jsonFiltered = filterEmojis(jsonData);
 				var count = jsonFiltered.length;
 
-				svg.attr("height", count * 30);
+				svg.attr("height", count * 30 + 30);
 
 				x.domain([0, d3.max(jsonFiltered, function(d) { return d.occurence;})]);
+
+				g.selectAll("rect").data(jsonFiltered).enter().append("rect")
+					.attr("x", 50)
+					.attr("y", function(d, i) { return y(i) + 15; })
+					.attr("height", (count * 30) / jsonFiltered.length - 10)
+					.attr("width", function(d) { return x(d.occurence); })
+					.attr("class", "rect")
+					.on("mouseover", function(d) {
+						// Remplissage rectangle
+						d3.select(this).style("fill", "orange");
+						// Grossissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+						// Grossissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+					})
+					.on("mouseout", function(d) {
+						// Vidage rectangle
+						d3.select(this).transition().duration(300).style("fill", "white");
+						// Rétrécissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+						// Rétrécissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+					});
 
 				g.selectAll("emojis").data(jsonFiltered).enter().append("text")
 					.text(function(d) {
 						return d["Brow."];
 					})
-					.attr("y", function(d, i) { return y(i) + 20; })
+					.attr("y", function(d, i) { return y(i) + 30; })
 					.attr("x", 20)
 					.attr("class", "emoji")
+					.attr("id", function(d) { return d.Code; })
 					.style("font-size", 20)
 					.style("font-family", "monospace");
-
-				g.selectAll("rect").data(jsonFiltered).enter().append("rect")
-	    			.attr("x", 50)
-	    			.attr("y", function(d, i) { return y(i) + 5; })
-	    			.attr("height", (count * 30) / jsonFiltered.length - 10)
-					.attr("width", function(d) { return x(d.occurence); })
-					.attr("class", "rect")
-					.on("mouseover", function(d) {
-						d3.select(this).style("fill", "orange");
-					})
-					.on("mouseout", function(d) {
-						d3.select(this).transition().duration(500).style("fill", "white");
-					});;
 
 				g.selectAll("occurence").data(jsonFiltered).enter().append("text")
 					.text(function(d) {
 						return d.occurence;
 					})
 					.attr("x", function(d) { return x(d.occurence) + 60; })
-					.attr("y", function(d, i) { return y(i) + 20; })
-					.attr("class", "occurence");
+					.attr("y", function(d, i) { return y(i) + 30; })
+					.attr("id", function(d) { return d.Code; })
+					.attr("class", "occurence")
+					.style("font-size", 20)
+					.style("font-family", "monospace");;
 
 				var progressBar = document.getElementById("progressBar");
 				document.body.removeChild(progressBar);
@@ -145,7 +170,7 @@
 			function filterEmojis(emojis) {
 				var json = [];
 				for(var emoji of emojis) {
-					if(emoji.occurence > 0) {
+					if(emoji.occurence > 5) {
 						json.push(emoji);
 					}
 				}

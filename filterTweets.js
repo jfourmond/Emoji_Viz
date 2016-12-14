@@ -1,6 +1,12 @@
 var jsonFile = require('jsonfile');
 
-var inputFile = 'data.json';
+if (process.argv.length <= 2) {
+	console.log("Usage: node filterTweets.js [filename]");
+	process.exit(-1);
+}
+
+//	Gestion des paramètres
+var inputFile = process.argv[2];
 var tweets = [];
 
 jsonFile.readFile(inputFile, function(err, obj) {
