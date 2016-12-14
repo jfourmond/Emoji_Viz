@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
  	<head>
@@ -146,13 +145,15 @@
 			function filterEmojis(emojis) {
 				var json = [];
 				for(var emoji of emojis) {
-					if(emoji["occurence"] > 0) {
+					if(emoji.occurence > 0) {
 						json.push(emoji);
 					}
 				}
+				json.sort(function (a, b) {
+					return b.occurence - a.occurence;
+				})
 				return json;
 			}
 		</script>
-		<h1>Fin SVG</h1>
 	</body>
 </html>
