@@ -24,11 +24,15 @@ https://goo.gl/yrl04A
 
 ## Récupération des tweets
 
+### Ressources
+
+- [Twitter API](https://dev.twitter.com/streaming/public)
+
 ***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
 
 ### 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
 
-Modules Node utilisés :
+Modules Node JS utilisés :
 - [twitter-node-client](https://github.com/BoyCook/TwitterJSClient) pour la récupération des tweets
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
 
@@ -67,3 +71,5 @@ L'argument *filename* représente le nom du fichier contenant les tweets. Le fic
 Par exemple :
 
 	node filterTweets.js data.json
+
+## Ressources
