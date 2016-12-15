@@ -15,6 +15,8 @@ Langage :
 
 [https://jfourmond.github.io/Emoji_Viz/](https://jfourmond.github.io/Emoji_Viz/)
 
+[Liste des Emojis](https://jfourmond.github.io/Emoji_Viz/emojis.html)
+
 [https://jfourmond.github.io/Emoji_Viz/test.html](https://jfourmond.github.io/Emoji_Viz/test.html)
 
 [https://jfourmond.github.io/Emoji_Viz/test1.html](https://jfourmond.github.io/Emoji_Viz/test1.html)
