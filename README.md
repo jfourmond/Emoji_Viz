@@ -65,11 +65,11 @@ Pour filtrer les tweets :
 1. Récupérer les modules précédents
 2. Exécuter la commande
 
-	node filterTweets.js [filename]
+	node filterTweets.js [inputFile] [outputFile]
 
-L'argument *filename* représente le nom du fichier contenant les tweets. Le fichier en sortie sera ***tweets.json***.
+L'argument *inputFile* représente le nom du fichier contenant les tweets. Le fichier en sortie portera le nom *outputFile*.
 Par exemple :
 
-	node filterTweets.js data.json
+	node filterTweets.js data.json tweets.json
 
 ## Ressources
