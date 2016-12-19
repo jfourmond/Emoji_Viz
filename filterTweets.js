@@ -1,21 +1,22 @@
 var jsonFile = require('jsonfile');
 
-if (process.argv.length <= 2) {
-	console.log("Usage: node filterTweets.js [filename]");
+if (process.argv.length <= 3) {
+	console.log("Usage: node filterTweets.js [inputFile] [outputFile]");
 	process.exit(-1);
 }
 
 //	Gestion des paramètres
 var inputFile = process.argv[2];
+var outputFile = process.argv[3];
 var tweets = [];
 
 jsonFile.readFile(inputFile, function(err, obj) {
 	var data = obj;
 	// Filtre sur les tweets
 	tweets = filterTweets(data);
-	console.log(tweets.length + " TWEETS");
 	// Ecriture des tweets
 	writeTweets(tweets);
+	console.log("DONE");
 });
 
 function filterTweets(data) {
@@ -45,7 +46,6 @@ function filterTweets(data) {
 }
 
 function writeTweets(tweets) {
-	var outputFile = 'tweets.json';
 	jsonFile.writeFile(outputFile, tweets, {spaces: 4}, function (err) {
 		console.error(err)
 	});
