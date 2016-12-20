@@ -15,8 +15,7 @@ Langage :
 
 - [Accueil](https://jfourmond.github.io/Emoji_Viz/)
 	- [Liste des Emojis](https://jfourmond.github.io/Emoji_Viz/emojis.html)
-- [https://jfourmond.github.io/Emoji_Viz/test.html](https://jfourmond.github.io/Emoji_Viz/test.html)
-- [https://jfourmond.github.io/Emoji_Viz/test1.html](https://jfourmond.github.io/Emoji_Viz/test1.html)
+	- [Bar Diagram](https://jfourmond.github.io/Emoji_Viz/bar_view.html)
 
 ## Cahier d'avancement
 
@@ -71,5 +70,12 @@ L'argument *inputFile* représente le nom du fichier contenant les tweets. Le fi
 Par exemple :
 
 	node filterTweets.js data.json tweets.json
+
+## Concaténation des tweets
+
+Module Node utilisé :
+- [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
+
+	node concatTweets.js [inputFile1] ... [inputFileN]
 
 ## Ressources
