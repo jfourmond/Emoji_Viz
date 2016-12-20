@@ -21,17 +21,14 @@ Langage :
 
 https://goo.gl/yrl04A
 
-## Récupération des tweets
-
-### Ressources
-
-- [Twitter API](https://dev.twitter.com/streaming/public)
+## Scripts de récupération & tri des tweets
 
 ***Il est fortement découragé d'utiliser OAuth 1.0A avec du Javascript client***.
 
 ### 100 tweets toutes les minutes pendant [hours] heure(s), [minutes] minute(s) et/ou [n] itérations
 
 Modules Node JS utilisés :
+- [Twitter API](https://dev.twitter.com/streaming/public)
 - [twitter-node-client](https://github.com/BoyCook/TwitterJSClient) pour la récupération des tweets
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
 
@@ -54,7 +51,7 @@ Le nombre d'itération (de recherches effectuées et de fichiers crées) se calc
 
 	var MAX = (hours * 60) + minutes + n;
 
-## Filtrage des tweets
+### Filtrage des tweets - Pas de doublons, pas de retweets
 
 Module Node utilisé :
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
@@ -73,9 +70,22 @@ Par exemple :
 
 ## Concaténation des tweets
 
-Module Node utilisé :
+Modules Node utilisés :
+
 - [jsonfile](https://www.npmjs.com/package/jsonfile) pour la lecture et l'écriture d'un fichier JSON
+- **fs**
 
 	node concatTweets.js [inputFile1] ... [inputFileN]
 
-## Ressources
+Script de concaténation de fichiers de tweets "purs", en un tableau de tweets. La sortie de ce script est le fichier ***tweets_raw.json***.
+
+## Filtre des tweets sur les emojis
+
+Modules Node utilisés :
+
+- **fs**
+- [d3](https://www.npmjs.com/package/d3) pour la lecture d'un fichier CSV
+
+	node filterTweetsEmoji.js
+
+Pour l'optimisation de la visualisation, seuls les tweets contenant au moins un emoji ont été conservés. La sortie de ce script est le fichier ***tweets.json***
