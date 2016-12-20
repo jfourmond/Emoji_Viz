@@ -41,7 +41,7 @@
 				.attr('class', 'hidden tooltip');
 
 			var x = d3.scaleLinear().range([0, 500]);
-			var y = d3.scaleLinear().range([0, 30]);
+			var y = d3.scaleLinear().range([0, 800]);
 
 			// Chargement des fichiers de manière asynchrone
 			queue()
@@ -159,7 +159,7 @@
 			function filterEmojis(emojis) {
 				var json = [];
 				for(var emoji of emojis) {
-					if(emoji.occurence > 5) {
+					if(emoji.occurence > 50) {
 						json.push(emoji);
 					}
 				}
