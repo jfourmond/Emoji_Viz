@@ -44,7 +44,7 @@
 
 			// Chargement des fichiers de manière asynchrone
 			queue()
-				.defer(d3.json, "tweets_test.json")
+				.defer(d3.json, "tweets.json")
 				.defer(d3.csv, "emoji.csv")
 				.await(processData);  // une fois les fichiers chargé, la fonction processData est appelée avec les fichiers en arguments
 

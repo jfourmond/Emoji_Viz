@@ -45,12 +45,15 @@
 
 			// Chargement des fichiers de manière asynchrone
 			queue()
-				.defer(d3.json, "tweets_test.json")
+				.defer(d3.json, "tweets.json")
 				.defer(d3.csv, "emoji.csv")
 				.await(processTweets);
 
  			function processTweets(error, tweets, emojis) {
 				if(error) throw error;
+
+				console.log(emojis.length + " EMOJIS : %O ", emojis);
+				console.log(tweets.length + " TWEETS : %O", tweets);
 
 				var countEmojis = 0;
 
