@@ -50,6 +50,7 @@
 				.await(processTweets);
 
  			function processTweets(error, tweets, emojis) {
+				if(error) throw error;
 				var countEmojis = 0;
 
 				for(var e of emojis) {
