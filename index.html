@@ -6,46 +6,89 @@
 		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css" />
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 		<title>Emoji Viz</title>
+		<style>
+			.page-content {
+				margin:24px;
+			}
+			p {
+				margin:30px;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>Visualisation de dictionnaires d’emojis et leur fréquence</h1>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Emoji Viz'</span>
+						<div class="mdl-layout-spacer"></div>
+							<nav class="mdl-navigation mdl-layout--large-screen-only">
+							</nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">Visualisations</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view.html">Diagramme en barre</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+				</nav>
+			</div>
+			<main class="mdl-layout__content">
+				<div class="page-content">
+					<h1>Visualisation de dictionnaires d’emojis et leur fréquence</h1>
 
-		<h2>Membres</h2>
+					<h2>Membres</h2>
 
-		FOURMOND Jérôme (<a href="mailto:">jerome.fourmond@etu.univ-lyon1.fr</a>) - <a href="https://github.com/jfourmond">https://github.com/jfourmond</a>
+					FOURMOND Jérôme (<a href="mailto:">jerome.fourmond@etu.univ-lyon1.fr</a>) - <a href="https://github.com/jfourmond">https://github.com/jfourmond</a>
 
-		<br>
+					<br>
 
-		LANGLOIS Aurélien (<a href="mailto:">aurelien.langlois@etu.univ-lyon1.fr</a>) - <a href="https://github.com/Aurelink">https://github.com/Aurelink</a>
+					LANGLOIS Aurélien (<a href="mailto:">aurelien.langlois@etu.univ-lyon1.fr</a>) - <a href="https://github.com/Aurelink">https://github.com/Aurelink</a>
 
-		<h2>Description</h2>
+					<h2>Description</h2>
 
-		<p>Dans un monde où les réseaux sociaux sont un moyen majeur pour s’exprimer librement, les emojis permettent de faire partager un sentiment, une émotion, une volonté aux lecteurs. Aujourd’hui, des milliers d’emojis ont été enregistrés allant du simple smiley, au drapeau national.</p>
+					<p>
+						Dans un monde où les réseaux sociaux sont un moyen majeur pour s’exprimer
+						librement, les emojis permettent de faire partager un sentiment, une
+						émotion, une volonté aux lecteurs. Aujourd’hui, des milliers d’emojis
+						ont été enregistrés allant du simple smiley, au drapeau national
+					</p>
 
-		<h2>Projets similaires</h2>
+					<p>
+						Les visualisations proposées ici utilisent des tweets évoquant le
+						mot-clé <b>"star-wars"</b> ayant été postés le jour de la sortie
+						française de "Rogue One : A Star Wars Story".
+						La récupération des tweets a débuté le 13 Décembre au soir, et s'est
+						terminée le 15 décembre au matin.
+					</p>
 
-		<p>Des projets basés sur l'utilisation des emojis sur twitter existent déjà :<p>
+					<p>
+						Plus de <i>190 000</i> tweets ont ainsi été récoltés. Parmi eux,
+						retweets et doublons ont été supprimés, atteignant le compte de
+						<i>83587</i> publications. Pour optimiser le temps d'affichage de la
+						visualisation, seuls les tweets contenant au moins un emoji ont été
+						conservés : le décompte final était alors de <i>7 603</i> tweets.
+					</p>
 
-		<ul>
-			<li><a href="http://emojitracker.com/">Emoji Tracker</a></li>
-		</ul>
+					<h2>Projets similaires</h2>
 
-		<h2>Planning</h2>
+					<p>Des projets basés sur l'utilisation des emojis sur twitter existent déjà :<p>
 
-		<ol>
-			<li><b>Semaine 1 :</b> Recherche, production d’un ou de jeux de données intéressants</li>
-			<li><b>Semaine 2 :</b> Sketching</li>
-			<li><b>Semaine 3 :</b> Sketching & Test API Twitter</li>
-			<li><b>Semaine 4 :</b> Développement API Twitter & Emojis</li>
-			<li><b>Semaine 5 :</b> Récupération 7000 tweets uniques (minimum)</li>
-		</ol>
+					<ul>
+						<li><a href="http://emojitracker.com/">Emoji Tracker</a></li>
+					</ul>
 
-		<h2>Pages</h2>
+					<h2>Planning</h2>
 
-		<ul>
-			<li><a href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des Emojis</a></li>
-			<li><a href="https://jfourmond.github.io/Emoji_Viz/bar_view.html">Diagramme en barre</a></li>
-			<li><a href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a></li>
-		</ul>
+					<ol>
+						<li><b>Semaine 1 :</b> Recherche, production d’un ou de jeux de données intéressants</li>
+						<li><b>Semaine 2 :</b> Sketching</li>
+						<li><b>Semaine 3 :</b> Sketching & Test API Twitter</li>
+						<li><b>Semaine 4 :</b> Développement API Twitter & Emojis</li>
+						<li><b>Semaine 5 :</b> Récupération 7000 tweets uniques (minimum)</li>
+					</ol>
+				</div>
+			</main>
+		</div>
 	</body>
 </html>
