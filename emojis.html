@@ -4,64 +4,84 @@
 		<meta charset='utf-8'>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css" />
-		<title>Liste des emojis</title>
+		<title>Liste des Emojis</title>
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://d3js.org/queue.v1.min.js"></script>
 		<style>
-			table {
-				margin: 40px;
-				padding: 40px;
-			}
-			th, td {
-				width: 10%;
+			.page-content {
+				padding:24px;
+				overflow-x: scroll;
 			}
 		</style>
 	</head>
 	<body>
-		<h2>Liste des emojis</h2>
-		<script>
-			queue()
-				.defer(d3.csv, "emoji.csv")
-				.await(processData);
+		<div class="mdl-layout mdl-js-layout">
+			<header class="mdl-layout__header mdl-layout__header--scroll">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Liste des Emojis</span>
+					<div class="mdl-layout-spacer"></div>
+					<nav class="mdl-navigation">
+					</nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">Visualisations</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view.html">Diagramme en barre</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+				</nav>
+			</div>
+			<main class="mdl-layout__content">
+				<div class="page-content">
+					<script>
+						queue()
+							.defer(d3.csv, "emoji.csv")
+							.await(processData);
 
- 			function processData(error, emojis) {
-				var keys = d3.keys(emojis[0]);
-				keys.splice(3, 13);
+			 			function processData(error, emojis) {
+							var keys = d3.keys(emojis[0]);
+							keys.splice(3, 13);
 
-				showTable(keys, emojis);
-			}
+							showTable(keys, emojis);
+						}
 
-			function showTable(keys, emojis) {
-				var table = d3.select("body").append("table")
-					.attr("class", "mdl-data-table mdl-js-data-table mdl-shadow--2dp");
-				var thead = table.append("thead");
-				var tbody = table.append("tbody");
+						function showTable(keys, emojis) {
+							var table = d3.select(".page-content").append("table")
+								.attr("class", "mdl-data-table mdl-js-data-table mdl-shadow--2dp");
+							var thead = table.append("thead");
+							var tbody = table.append("tbody");
 
-				thead.append("tr")
-					.selectAll("th")
-					.data(keys).enter()
-					.append("th")
-					.text(function(key) {
-						return key;
-					});
+							thead.append("tr")
+								.selectAll("th")
+								.data(keys).enter()
+								.append("th")
+								.attr("class", function(d) { if(d != "Date" && d != "№") return "mdl-data-table__cell--non-numeric"; })
+								.text(function(key) {
+									return key;
+								});
 
-				var tr = tbody.selectAll("tr")
-					.data(emojis).enter()
-					.append("tr");
+							var tr = tbody.selectAll("tr")
+								.data(emojis).enter()
+								.append("tr");
 
-				var cells = tr.selectAll("td")
-					.data(function(d) {
-						return keys.map(function(key) {
-							return {
-								key : key,
-								value : d[key]
-							};
-						});
-					}).enter()
-					.append("td")
-					.text(function(d) { return d.value; });
-			}
-		</script>
+							var cells = tr.selectAll("td")
+								.data(function(d) {
+									return keys.map(function(key) {
+										return {
+											key : key,
+											value : d[key]
+										};
+									});
+								}).enter()
+								.append("td")
+								.attr("class", function(d) { if(d.key != "Date" && d.key != "№") return "mdl-data-table__cell--non-numeric"; })
+								.text(function(d) { return d.value; });
+						}
+					</script>
+				</div>
+ 			</main>
+		</div>
 	</body>
 </html>
