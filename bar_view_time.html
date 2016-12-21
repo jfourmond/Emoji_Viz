@@ -153,7 +153,9 @@
 					.attr("class", "emoji")
 					.attr("id", function(d) { return d.Code; })
 					.style("font-size", 20)
-					.style("font-family", "monospace");
+					.style("font-family", "monospace")
+					.append("title")
+					.text(function(d) { return d.Code; });
 
 				g.selectAll("occurence").data(jsonFiltered).enter().append("text")
 					.text(function(d) {

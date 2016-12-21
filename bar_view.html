@@ -14,15 +14,6 @@
 				stroke: orange;
 				stroke-width: 1px;
 			}
-			div.tooltip {
-				color: #222;
-				background-color: #fff;
-				padding: .5em;
-				text-shadow: #f5f5f5 0 1px 0;
-				border-radius: 2px;
-				opacity: 0.9;
-				position: absolute;
-			}
 		</style>
 	</head>
 	<body>
@@ -36,9 +27,6 @@
 				.attr("height", 250);
 
 			var g = svg.append("g");
-
-			var tooltip = d3.select('body').append('div')
-				.attr('class', 'hidden tooltip');
 
 			var x = d3.scaleLinear().range([0, 500]);
 			var y = d3.scaleLinear().range([0, 30]);
@@ -128,18 +116,8 @@
 					.attr("id", function(d) { return d.Code; })
 					.style("font-size", 20)
 					.style("font-family", "monospace")
-					.on('mousemove', function(d) {
-						var mouse = d3.mouse(svg.node()).map(function(d) {
-							return parseInt(d);
-						});
-						var v = d.Code;
-						tooltip.classed('hidden', false)
-							.attr('style', 'left:' + (mouse[0] + 15) + 'px; top:' + (mouse[1]+80) + 'px')
-							.html(v);
-					})
-					.on('mouseout', function() {
-						tooltip.classed('hidden', true);
-					});
+					.append("title")
+					.text(function(d) { return d.Code; });
 
 				g.selectAll("occurence").data(jsonFiltered).enter().append("text")
 					.text(function(d) {
