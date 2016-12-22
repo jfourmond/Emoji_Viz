@@ -14,6 +14,9 @@
 				stroke: orange;
 				stroke-width: 1px;
 			}
+			.page-content {
+				margin:24px;
+			}
 		</style>
 	</head>
 	<body>
@@ -43,7 +46,7 @@
 				<script>
 					var title = document.getElementById("title");
 
-					var width = 960;
+					var width = 1200;
 					var height = 250;
 
 					var color = d3.scaleOrdinal().range(d3.schemeCategory10);
@@ -70,6 +73,8 @@
 					});
 
 					var jsonData;
+					var occurenceMax = 0;
+					var occurenceMin = 100;
 		 			function processData(error, tweets, emojis) {
 						var countEmojis = 0;
 
@@ -104,6 +109,8 @@
 									}
 								} catch(err) {}
 							}
+							if(n > occurenceMax) occurenceMax = n;
+							if(n < occurenceMin) occurenceMin = n;
 							countEmojis += n;
 							// Injecter dans le json les occurences
 							e.occurence = n;
@@ -125,7 +132,7 @@
 
 						svg.attr("height", count * 30 + 30);
 
-						x.domain([0, d3.max(jsonFiltered, function(d) { return d.occurences[date]; })]);
+						x.domain([0, occurenceMax / 2]);
 
 						g.selectAll("rect").data(jsonFiltered).enter().append("rect")
 							.attr("x", 50)

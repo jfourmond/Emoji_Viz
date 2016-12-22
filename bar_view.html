@@ -42,9 +42,12 @@
 					<script>
 						var title = document.getElementById("title");
 
+						var width = 1200;
+						var height = 250;
+
 						var svg = d3.select(".page-content").append("svg")
-							.attr("width", 960)
-							.attr("height", 250);
+							.attr("width", width)
+							.attr("height", height);
 
 						var g = svg.append("g");
 
@@ -57,6 +60,8 @@
 							.defer(d3.csv, "emoji.csv")
 							.await(processTweets);
 
+						var occurenceMax = 0;
+						var occurenceMin = 100;
 			 			function processTweets(error, tweets, emojis) {
 							if(error) throw error;
 
@@ -74,6 +79,8 @@
 										if(o != -1) n++;
 									} catch(err) {}
 								}
+								if(n > occurenceMax) occurenceMax = n;
+								if(n < occurenceMin) occurenceMin = n;
 								countEmojis += n;
 								// Injecter dans le json les occurences
 								e.occurence = n;
@@ -89,7 +96,7 @@
 
 							svg.attr("height", count * 30 + 30);
 
-							x.domain([0, d3.max(jsonFiltered, function(d) { return d.occurence;})]);
+							x.domain([0, occurenceMax / 2]);
 
 							g.selectAll("rect").data(jsonFiltered).enter().append("rect")
 								.attr("x", 50)
