@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+ 	<head>
+		<meta charset='utf-8'>
+		<title>Diagramme en barre</title>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css" />
+		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script src="https://d3js.org/queue.v1.min.js"></script>
+    <script src="d3-cloud-master\build\d3.layout.cloud.js"></script>
+		<style>
+			rect {
+				fill: none;
+				stroke: orange;
+				stroke-width: 1px;
+			}
+			.page-content {
+				margin:24px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout">
+			<header class="mdl-layout__header mdl-layout__header--scroll">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Nuage d'émoji</span>
+					<div class="mdl-layout-spacer"></div>
+					<nav class="mdl-navigation"></nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">Menu</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+				</nav>
+			</div>
+			<main class="mdl-layout__content">
+				<div class="page-content">
+					<script>
+						var title = document.getElementById("title");
+
+						var svg = d3.select(".page-content").append("svg")
+            .attr("y",500)
+            .attr("x",500)
+							.attr("width", 960)
+							.attr("height", 250);
+
+            var g = svg.append("g");
+
+						// Chargement des fichiers de manière asynchrone
+						queue()
+							.defer(d3.json, "tweets.json")
+							.defer(d3.csv, "emoji.csv")
+							.await(processTweets);
+
+              var frequency_list=[];
+              //borne pour les tailles max et min dans le nuage
+              var maxFreq=0;
+              var minFreq=300;
+
+              var tailleMax=200;
+              var tailleMin=5;
+
+			 			function processTweets(error, tweets, emojis) {
+							if(error) throw error;
+
+							var countEmojis = 0;
+
+							for(var e of emojis) {
+								var n = 0;
+								var emoji = e["Brow."];
+								for(var tweet of tweets) {
+									try {
+										var o = tweet.text.search(emoji);
+										if(o != -1) n++;
+									} catch(err) {}
+								}
+								countEmojis += n;
+								// Injecter dans le json les occurences
+								e.occurence = n;
+							}
+              for(var e of emojis){
+                if(e.occurence>=1){
+                  frequency_list.push({"text":e["Brow."],"size":e.occurence});
+                  if(minFreq>e.occurence){minFreq=e.occurence}
+                  if(maxFreq<e.occurence){maxFreq=e.occurence}
+                }
+              }
+
+              nuage();
+
+						}
+
+            ////code fonctionnel pour le nuage////
+
+            function nuage(){
+
+              d3.layout.cloud().size([800, 600])
+                    .words(frequency_list)
+                    .rotate(0)
+                    .fontSize(function(d) { return ((d.size/maxFreq*tailleMax)+tailleMin); })//changemet d'intervalle sur la base voulut
+                    //.spiral("rectangular")
+                    .on("end", draw)
+                    .start();
+            }
+
+            function draw(words) {
+                d3.select("body").append("svg")
+                        .attr("width", 800)
+                        .attr("height", 600)
+                        .attr("class", "wordcloud")
+                        .append("g")
+                        .attr("transform", "translate(420,375)")
+                        .selectAll("text")
+                        .data(words)
+                        .enter().append("text")
+                        .style("font-size", function(d) { return d.size + "px"; })
+                        .attr("transform", function(d) {
+                            return "translate(" + [d.x-(1/3.6*d.width), d.y] + ")rotate(" + d.rotate + ")";//decalage réglé ici environ de 1/3.3 de la longeure
+                        })
+                        .text(function(d) { return d.text; });
+            }
+					</script>
+				</div>
+			</main>
+		</div>
+	</body>
+</html>
