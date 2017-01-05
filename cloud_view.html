@@ -16,8 +16,8 @@
 		</style>
 	</head>
 	<body>
-		<div class="mdl-layout mdl-js-layout">
-			<header class="mdl-layout__header mdl-layout__header--scroll">
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
 				<div class="mdl-layout__header-row">
 					<span class="mdl-layout-title">Nuage d'Emojis</span>
 					<div class="mdl-layout-spacer"></div>
@@ -39,8 +39,8 @@
 					<script>
 						var title = document.getElementById("title");
 
-						var width = 1200;
-						var height = 800;
+						var width = 800;
+						var height = 600;
 
 						var svg = d3.select(".page-content").append("svg")
 							.attr("x",100)
@@ -56,6 +56,7 @@
 							.await(processTweets);
 
 						var frequency_list=[];
+						console.log("BEFORE : %O", frequency_list);
 						//borne pour les tailles max et min dans le nuage
 						var maxFreq=0;
 						var minFreq=300;
@@ -83,7 +84,7 @@
 							}
 							for(var e of emojis){
 								if(e.occurence>=1){
-									frequency_list.push({"text":e["Brow."],"size":e.occurence});
+									frequency_list.push({"text":e["Brow."],"size":e.occurence, "Code":e.Code, "Name":e.Name});
 									if(minFreq>e.occurence)
 										minFreq=e.occurence;
 									if(maxFreq<e.occurence)
@@ -94,6 +95,7 @@
 
 							console.log(emojis.length + " EMOJIS : %O ", emojis);
 							console.log(tweets.length + " TWEETS : %O", tweets);
+							console.log("FREQUENCY LIST : %O", frequency_list);
 
 							nuage();
 						}
@@ -104,7 +106,7 @@
 								.words(frequency_list)
 								.rotate(0)
 								.fontSize(function(d) { return ((d.size/maxFreq*tailleMax)+tailleMin); })//changemet d'intervalle sur la base voulut
-								//.spiral("rectangular")
+								.spiral("archimedean")
 								.on("end", draw)
 								.start();
 						}
@@ -118,7 +120,9 @@
 								.attr("transform", function(d) {
 									return "translate(" + [d.x-(1/3.6*d.width), d.y] + ")rotate(" + d.rotate + ")";//decalage réglé ici environ de 1/3.3 de la longeure
 								})
-								.text(function(d) { return d.text; });
+								.text(function(d) { return d.text; })
+								.append("title")
+								.text(function(d) { return d.Name; });;
 						}
 					</script>
 				</div>
