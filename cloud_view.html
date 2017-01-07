@@ -97,7 +97,7 @@
 			var g_cloud = svg_cloud.append("g");
 			var g_bar = svg_bar.append("g");
 
-			var x = d3.scaleLinear().range([0, 125]);
+			var x = d3.scaleLinear().domain([0, bar_width]).range([0, bar_width / 2 - 25]);
 			var y = d3.scaleLinear().range([0, 30]);
 
 			// Chargement des fichiers de manière asynchrone
@@ -165,7 +165,7 @@
 			}
 
 			function draw(words) {
-				g_cloud.attr("transform", "translate(350, 320)")
+				g_cloud.attr("transform", "translate("+ cloud_width / 2 +", " + cloud_height / 2 +")")
 					.selectAll("text")
 					.data(words)
 					.enter().append("text")
@@ -219,7 +219,7 @@
 
 				// svg.attr("height", count * 30 + 30);
 
-				x.domain([0, occurenceMax / 2]);
+				// x.domain([0, occurenceMax / 2]);
 
 				g_bar.selectAll("rect").data(jsonFiltered).enter().append("rect")
 					.attr("x", 50)
