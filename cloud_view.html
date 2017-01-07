@@ -6,12 +6,26 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css" />
 		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-		<script src="https://d3js.org/d3.v3.min.js"></script>
+		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://d3js.org/queue.v1.min.js"></script>
 		<script src="d3-cloud-master\build\d3.layout.cloud.js"></script>
 		<style>
+			rect {
+				fill: none;
+				stroke: orange;
+				stroke-width: 1px;
+			}
 			.page-content {
-				margin:24px;
+				margin-left:24px;
+			}
+			#view-source {
+				position: fixed;
+				display: block;
+				right: 0;
+				bottom: 0;
+				margin-right: 40px;
+				margin-bottom: 40px;
+				z-index: 900;
 			}
 		</style>
 	</head>
@@ -21,7 +35,11 @@
 				<div class="mdl-layout__header-row">
 					<span class="mdl-layout-title">Nuage d'Emojis</span>
 					<div class="mdl-layout-spacer"></div>
-					<nav class="mdl-navigation"></nav>
+					<nav class="mdl-navigation mdl-layout--large-screen-only">
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+					</nav>
 				</div>
 			</header>
 			<div class="mdl-layout__drawer">
@@ -29,104 +47,253 @@
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
 					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
-					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view.html">Diagramme en barre</a>
 					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
 				</nav>
 			</div>
 			<main class="mdl-layout__content">
 				<div class="page-content">
 					<h1 id="title">Lecture des tweets...</h1>
-					<script>
-						var title = document.getElementById("title");
-
-						var width = 800;
-						var height = 600;
-
-						var svg = d3.select(".page-content").append("svg")
-							.attr("x",100)
-							.attr("width", width)
-							.attr("height", height);
-
-						var g = svg.append("g");
-
-						// Chargement des fichiers de manière asynchrone
-						queue()
-							.defer(d3.json, "tweets.json")
-							.defer(d3.csv, "emoji.csv")
-							.await(processTweets);
-
-						var frequency_list=[];
-						console.log("BEFORE : %O", frequency_list);
-						//borne pour les tailles max et min dans le nuage
-						var maxFreq=0;
-						var minFreq=300;
-
-						var tailleMax=200;
-						var tailleMin=5;
-
-			 			function processTweets(error, tweets, emojis) {
-							if(error) throw error;
-
-							var countEmojis = 0;
-
-							for(var e of emojis) {
-								var n = 0;
-								var emoji = e["Brow."];
-								for(var tweet of tweets) {
-									try {
-										var o = tweet.text.search(emoji);
-										if(o != -1) n++;
-									} catch(err) {}
-								}
-								countEmojis += n;
-								// Injecter dans le json les occurences
-								e.occurence = n;
-							}
-							for(var e of emojis){
-								if(e.occurence>=1){
-									frequency_list.push({"text":e["Brow."],"size":e.occurence, "Code":e.Code, "Name":e.Name});
-									if(minFreq>e.occurence)
-										minFreq=e.occurence;
-									if(maxFreq<e.occurence)
-										maxFreq=e.occurence;
-								}
-							}
-							title.innerHTML = "Sur " + tweets.length + " Tweets uniques : " + countEmojis + " emojis";
-
-							console.log(emojis.length + " EMOJIS : %O ", emojis);
-							console.log(tweets.length + " TWEETS : %O", tweets);
-							console.log("FREQUENCY LIST : %O", frequency_list);
-
-							nuage();
-						}
-
-						////code fonctionnel pour le nuage////
-						function nuage(){
-							d3.layout.cloud().size([width, height])
-								.words(frequency_list)
-								.rotate(0)
-								.fontSize(function(d) { return ((d.size/maxFreq*tailleMax)+tailleMin); })//changemet d'intervalle sur la base voulut
-								.spiral("archimedean")
-								.on("end", draw)
-								.start();
-						}
-
-						function draw(words) {
-							g.attr("transform", "translate(420, 325)")
-								.selectAll("text")
-								.data(words)
-								.enter().append("text")
-								.style("font-size", function(d) { return d.size + "px"; })
-								.attr("transform", function(d) {
-									return "translate(" + [d.x-(1/3.6*d.width), d.y] + ")rotate(" + d.rotate + ")";//decalage réglé ici environ de 1/3.3 de la longeure
-								})
-								.text(function(d) { return d.text; })
-								.append("title")
-								.text(function(d) { return d.Name; });;
-						}
-					</script>
+					<div class="mdl-grid">
+						<div id="cloud_card" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+							<!-- Cloud View -->
+						</div>
+						<div id="bar_card" class="mdl-color--white mdl-shadow--4dp mdl-cell mdl-cell--4-col">
+							<!-- Bar View -->
+						</div>
+					</div>
 				</div>
 			</main>
 		</div>
+		<a href="https://github.com/jfourmond/Emoji_Viz/blob/master/cloud_view.html" id="view-source"
+			class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">Source</a>
+		<script>
+			var title = document.getElementById("title");
+			var cloud_card = document.getElementById("cloud_card");
+			var bar_card = document.getElementById("bar_card");
+			cloud_card.style.height = window.innerHeight+"px";
+			bar_card.style.height = window.innerHeight+"px";
+
+			var cloud_width = cloud_card.offsetWidth;
+			var cloud_height = cloud_card.offsetHeight;
+
+			var bar_width = bar_card.offsetWidth;
+			var bar_height = bar_card.offsetHeight;
+
+			console.log("CLOUD CARD WIDTH : "+ cloud_width);
+			console.log("CLOUD CARD HEIGHT : "+ cloud_height);
+			console.log("BAR CARD WIDTH : "+ bar_width);
+			console.log("BAR CARD HEIGHT : "+ bar_height);
+
+			var svg_cloud = d3.select("#cloud_card").append("svg")
+				.attr("x",100)
+				.attr("width", cloud_width)
+				.attr("height", cloud_height);
+
+			var svg_bar = d3.select("#bar_card").append("svg")
+				.attr("x",100)
+				.attr("width", bar_width)
+				.attr("height", bar_height);
+
+			var g_cloud = svg_cloud.append("g");
+			var g_bar = svg_bar.append("g");
+
+			var x = d3.scaleLinear().range([0, 125]);
+			var y = d3.scaleLinear().range([0, 30]);
+
+			// Chargement des fichiers de manière asynchrone
+			queue()
+				.defer(d3.json, "tweets.json")
+				.defer(d3.csv, "emoji.csv")
+				.await(processTweets);
+
+			var frequency_list=[];
+			//borne pour les tailles max et min dans le nuage
+			var occurenceMax = 0;
+			var occurenceMin = 100;
+
+			var occurenceMax=0;
+			var occurenceMin=300;
+
+			var tailleMax=200;
+			var tailleMin=5;
+			function processTweets(error, tweets, emojis) {
+				if(error) throw error;
+
+				var countEmojis = 0;
+
+				for(var e of emojis) {
+					var n = 0;
+					var emoji = e["Brow."];
+					for(var tweet of tweets) {
+						try {
+							var o = tweet.text.search(emoji);
+							if(o != -1) n++;
+						} catch(err) {}
+					}
+					countEmojis += n;
+					// Injecter dans le json les occurences
+					e.occurence = n;
+				}
+				for(var e of emojis){
+					if(e.occurence>=1){
+						frequency_list.push({"text":e["Brow."],"size":e.occurence, "Code":e.Code, "Name":e.Name});
+						if(occurenceMin>e.occurence)
+							occurenceMin=e.occurence;
+						if(occurenceMax<e.occurence)
+							occurenceMax=e.occurence;
+					}
+				}
+				title.innerHTML = "Sur " + tweets.length + " Tweets uniques : " + countEmojis + " emojis";
+
+				console.log(emojis.length + " EMOJIS : %O ", emojis);
+				console.log(tweets.length + " TWEETS : %O", tweets);
+				console.log("FREQUENCY LIST : %O", frequency_list);
+
+				nuage();
+				showStats(emojis);
+			}
+
+			////code fonctionnel pour le nuage////
+			function nuage(){
+				d3.layout.cloud().size([cloud_width, cloud_height])
+					.words(frequency_list)
+					.rotate(0)
+					.fontSize(function(d) { return ((d.size/occurenceMax*tailleMax)+tailleMin); })//changemet d'intervalle sur la base voulut
+					.spiral("archimedean")
+					.on("end", draw)
+					.start();
+			}
+
+			function draw(words) {
+				g_cloud.attr("transform", "translate(350, 320)")
+					.selectAll("text")
+					.data(words)
+					.enter().append("text")
+					.style("font-size", function(d) { return d.size + "px"; })
+					.attr("transform", function(d) {
+						return "translate(" + [d.x-(1/3.6*d.width), d.y] + ")rotate(" + d.rotate + ")";//decalage réglé ici environ de 1/3.3 de la longeure
+					})
+					.text(function(d) { return d.text; })
+					.on("mouseover", function(d) {
+						// Remplissage rectangle
+						d3.selectAll(".rect")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							})
+							.style("fill", "orange");
+						// Grossissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+						// Grossissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+					})
+					.on("mouseout", function(d) {
+						// Vidage rectangle
+						d3.selectAll("rect")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).transition().duration(300).style("fill", "white");
+						// Rétrécissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+						// Rétrécissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+					})
+					.append("title")
+					.text(function(d) { return d.Name; });
+			}
+
+			function showStats(jsonData) {
+				var jsonFiltered = filterEmojis(jsonData);
+				var count = jsonFiltered.length;
+
+				// svg.attr("height", count * 30 + 30);
+
+				x.domain([0, occurenceMax / 2]);
+
+				g_bar.selectAll("rect").data(jsonFiltered).enter().append("rect")
+					.attr("x", 50)
+					.attr("y", function(d, i) { return y(i) + 15; })
+					.attr("height", (count * 30) / jsonFiltered.length - 10)
+					.attr("width", function(d) { return x(d.occurence); })
+					.attr("class", "rect")
+					.attr("id", function(d) { return d.Code; })
+					.on("mouseover", function(d) {
+						// Remplissage rectangle
+						d3.select(this).style("fill", "orange");
+						// Grossissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+						// Grossissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 30);
+					})
+					.on("mouseout", function(d) {
+						// Vidage rectangle
+						d3.select(this).transition().duration(300).style("fill", "white");
+						// Rétrécissement emoji
+						d3.selectAll(".emoji")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+						// Rétrécissement occurence
+						d3.selectAll(".occurence")
+							.filter(function(e) {
+								return d.Code === e.Code;
+							}).style("font-size", 20);
+					});
+
+				g_bar.selectAll("emojis").data(jsonFiltered).enter().append("text")
+					.text(function(d) {
+						return d["Brow."];
+					})
+					.attr("y", function(d, i) { return y(i) + 30; })
+					.attr("x", 20)
+					.attr("class", "emoji")
+					.attr("id", function(d) { return d.Code; })
+					.style("font-size", 20)
+					.style("font-family", "monospace")
+					.append("title")
+					.text(function(d) { return d.Code; });
+
+				g_bar.selectAll("occurence").data(jsonFiltered).enter().append("text")
+					.text(function(d) {
+						return d.occurence;
+					})
+					.attr("x", function(d) { return x(d.occurence) + 60; })
+					.attr("y", function(d, i) { return y(i) + 30; })
+					.attr("id", function(d) { return d.Code; })
+					.attr("class", "occurence")
+					.style("font-size", 20)
+					.style("font-family", "monospace");
+			}
+
+			function filterEmojis(emojis) {
+				var json = [];
+				for(var emoji of emojis) {
+					if(emoji.occurence > 100) {
+						json.push(emoji);
+					}
+				}
+				json.sort(function (a, b) {
+					return b.occurence - a.occurence;
+				})
+				return json;
+			}
+		</script>
 	</body>
 </html>
