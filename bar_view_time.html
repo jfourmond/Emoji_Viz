@@ -95,7 +95,6 @@
 						var countEmojis = 0;
 
 						// Récupération des dates
-						console.log("Récupération des dates...");
 						for(var tweet of tweets) {
 							var date = new Date(tweet.created_at);
 							if(dates.indexOf(date.getDate() + " " + date.getHours()) == -1)
@@ -107,7 +106,6 @@
 						d3.select('#slider').attr("max", numberOfTime-1);
 
 						// Construction Tableau des occurences
-						console.log("Construction du Tableau des occurences")
 						for(var e of emojis) {
 							e.occurences = [];
 							var n = 0;
