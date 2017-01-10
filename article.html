@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.blue-light_blue.min.css" />
+		<script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+		<title>Article</title>
+	</head>
+	<body>
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Article</span>
+					<div class="mdl-layout-spacer"></div>
+					<nav class="mdl-navigation mdl-layout--large-screen-only">
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emojis</a>
+					</nav>
+				</div>
+			</header>
+			<div class="mdl-layout__drawer">
+				<span class="mdl-layout-title">Menu</span>
+				<nav class="mdl-navigation">
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/bar_view_time.html">Diagramme en barre avec slider</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emojis</a>
+				</nav>
+			</div>
+			<main class="mdl-layout__content">
+				<div class="page-content">
+					<object id="article" data="article.pdf" type="application/pdf">
+						<embed src="article.pdf" type="application/pdf" />
+					</object>
+					<!--
+					<iframe id="article" src="article.pdf" align="middle" name="article" title="article">
+					</iframe>
+				-->
+				</div>
+			</main>
+		</div>
+		<script>
+			var article = document.getElementById("article");
+			article.style.height = window.innerHeight+"px";
+			article.style.width = window.innerWidth+"px";
+
+			window.onresize = function(event) {
+				article.style.height = window.innerHeight+"px";
+				article.style.width = window.innerWidth+"px";
+			};
+		</script>
+	</body>
+</html>
