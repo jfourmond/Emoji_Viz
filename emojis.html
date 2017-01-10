@@ -46,7 +46,7 @@
 						var n = 0;
 
 						queue()
-							.defer(d3.csv, "emoji.csv")
+							.defer(d3.csv, "data/emoji.csv")
 							.await(processData);
 
 			 			function processData(error, emojis) {

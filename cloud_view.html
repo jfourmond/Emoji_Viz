@@ -104,8 +104,8 @@
 
 			// Chargement des fichiers de manière asynchrone
 			queue()
-				.defer(d3.json, "tweets.json")
-				.defer(d3.csv, "emoji.csv")
+				.defer(d3.json, "data/tweets.json")
+				.defer(d3.csv, "data/emoji.csv")
 				.await(processTweets);
 
 			var frequency_list=[];
