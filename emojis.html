@@ -38,7 +38,11 @@
 			</div>
 			<main class="mdl-layout__content">
 				<div class="page-content">
+					<h2 id="title">Emojis</h2>
 					<script>
+						var title = document.getElementById("title");
+						var n = 0;
+
 						queue()
 							.defer(d3.csv, "emoji.csv")
 							.await(processData);
@@ -47,10 +51,14 @@
 							var keys = d3.keys(emojis[0]);
 							keys.splice(3, 13);
 
+							n = emojis.length - 1;
+
 							showTable(keys, emojis);
 						}
 
 						function showTable(keys, emojis) {
+							title.innerHTML = n + " Emojis enregistrés";
+
 							var table = d3.select(".page-content").append("table")
 								.attr("class", "mdl-data-table mdl-js-data-table mdl-shadow--2dp");
 							var thead = table.append("thead");
