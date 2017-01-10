@@ -17,25 +17,36 @@
 			.page-content {
 				margin:24px;
 			}
+			#view-source {
+				position: fixed;
+				display: block;
+				right: 0;
+				bottom: 0;
+				margin-right: 40px;
+				margin-bottom: 40px;
+				z-index: 900;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-			<div class="mdl-layout__header-row">
-				<span class="mdl-layout-title">Diagramme en barre avec slider</span>
-				<div class="mdl-layout-spacer"></div>
-				<nav class="mdl-navigation mdl-layout--large-screen-only">
-					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
-					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
-					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emojis</a>
-				</nav>
-			</div>
+			<header class="mdl-layout__header">
+				<div class="mdl-layout__header-row">
+					<span class="mdl-layout-title">Diagramme en barre avec slider</span>
+					<div class="mdl-layout-spacer"></div>
+					<nav class="mdl-navigation mdl-layout--large-screen-only">
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
+						<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emoji</a>
+					</nav>
+				</div>
+			</header>
 			<div class="mdl-layout__drawer">
 				<span class="mdl-layout-title">Menu</span>
 				<nav class="mdl-navigation">
 					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/">Accueil</a>
 					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/emojis.html">Liste des emojis</a>
-					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emojis</a>
+					<a class="mdl-navigation__link" href="https://jfourmond.github.io/Emoji_Viz/cloud_view.html">Nuage d'Emoji</a>
 				</nav>
 			</div>
 			<main class="mdl-layout__content">
@@ -222,6 +233,8 @@
 					}
 				</script>
 			</div>
+			<a href="https://github.com/jfourmond/Emoji_Viz/blob/master/bar_view_time.html" id="view-source"
+				class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">Source</a>
 		</main>
 	</body>
 </html>
