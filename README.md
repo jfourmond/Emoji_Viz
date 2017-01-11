@@ -17,6 +17,7 @@ Langage :
 	- [Liste des Emojis](https://jfourmond.github.io/Emoji_Viz/emojis.html)
 	- [Diagramme en barre avec slider](https://jfourmond.github.io/Emoji_Viz/bar_view_time.html)
 	- [Nuage d'Emoji](https://jfourmond.github.io/Emoji_Viz/cloud_view.html)
+	- [Article](https://jfourmond.github.io/Emoji_Viz/article.html)
 
 ## Cahier d'avancement
 
